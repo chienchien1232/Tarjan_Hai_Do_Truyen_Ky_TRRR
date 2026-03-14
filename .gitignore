@@ -1,0 +1,13 @@
+# Chặn thư mục biên dịch (nặng và máy nào cũng có rồi)
+.compiler/
+
+# Chặn file game đã build xong
+*.exe
+HaiDo.exe
+
+# Chặn file rác của VS Code
+.vscode/
+
+# Chặn các file tạm khi biên dịch
+*.o
+*.obj
