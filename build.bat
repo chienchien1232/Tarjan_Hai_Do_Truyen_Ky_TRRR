@@ -6,20 +6,27 @@ set "COMPILER_PATH=%~dp0.compiler\bin"
 set "PATH=!COMPILER_PATH!;%PATH%"
 
 echo =========================================
-echo   DANG BIEN DICH: TARJAN HAI DO TRUYEN KY
+echo    Chien dep trai dang build game...
 echo =========================================
 
-:: Sử dụng dấu ngoặc kép bao quanh đường dẫn để tránh lỗi dấu ngoặc đơn ()
+:: 1. Biên dịch
+:: Thêm -static để tránh lỗi thiếu DLL nếu bạn dùng thư viện tĩnh
+:: Hoặc đảm bảo raylib.dll nằm cùng thư mục với HaiDo.exe
 g++ "Src/main.cpp" -o "HaiDo.exe" -I"Include" -I"Src" -L"Lib" -lraylib -lopengl32 -lgdi32 -lwinmm
 
 if %errorlevel% equ 0 (
-    echo [OK] Bien dich thanh cong!
+    echo [OK] Lam duoc roi!
     echo Dang khoi chay game...
     echo -----------------------------------------
-    start "" "HaiDo.exe"
+    
+    :: 2. Chạy trực tiếp thay vì dùng 'start' để dễ thấy lỗi Terminal nếu có
+    .\HaiDo.exe
+    
+    :: Nếu muốn dùng start, hãy thêm /d để chỉ định thư mục làm việc
+    :: start "" /d "%~dp0" "HaiDo.exe"
 ) else (
     echo -----------------------------------------
-    echo [LOI] Co loi trong qua trinh build.
+    echo [LOI] Co loi trong luc bien dich.
     echo -----------------------------------------
-    pause
 )
+pause

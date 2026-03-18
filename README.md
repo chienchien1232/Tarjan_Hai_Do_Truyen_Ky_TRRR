@@ -29,5 +29,5 @@ Visual Studio Code Extensions:
 Cài Extension C/C++ (của Microsoft) để được gợi ý code.
 Thư viện đồ họa (Đã đính kèm):
 Dự án đã có sẵn folder Lib và Include. Mọi người không được xóa các file .dll trong thư mục gốc. Nếu thiếu những file này, game sẽ báo lỗi "vcredist" hoặc "missing .dll".
-Terinal:
-Nên dùng PowerShell hoặc Command Prompt tích hợp sẵn trong VS Code để chạy lệnh .\build.bat.
+Terinal:git add README.md
+Nên dùng PowerShell hoặc Command Prompt tích hợp sẵn trong VS Code để chạy lệnh .\build.bat
