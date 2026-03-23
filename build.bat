@@ -6,7 +6,9 @@ set "COMPILER_PATH=%~dp0.compiler\bin"
 set "PATH=!COMPILER_PATH!;%PATH%"
 
 echo =========================================
-echo    Chien dep trai dang build game...
+
+echo    DANGG dep trai dang build game...
+
 echo =========================================
 
 :: 1. Biên dịch

@@ -1,4 +1,6 @@
-#include'"global.h"
+
+#include "global.h"
+
 #include <iostream>
 
 int main() {
@@ -7,7 +9,10 @@ int main() {
     const int screenHeight = 850;
     
     // Khởi tạo cửa sổ
-    InitWindow(screenWidth, screenHeight, "Tarjan Hai Do Truyen Ky - Team 7");
+
+
+    InitWindow(screenWidth, screenHeight, "Tarjan Hai Do Truyen Ky - Team 3");
+
     SetTargetFPS(60);
 
     // 2. Vòng lặp game chính
@@ -21,7 +26,9 @@ int main() {
 
         // Vẽ tiêu đề game
         DrawText("DO HOA TRO CHOI: TARJAN HAI DO", 20, 20, 25, GOLD);
-        DrawText("Team 7 - PTIT Project", 20, 55, 18, LIGHTGRAY);
+
+        DrawText("Team 3 - PTIT Project", 20, 55, 18, LIGHTGRAY);
+
 
         // A. Vẽ các đường đi (Edges) - Vẽ trước để nằm dưới các hòn đảo
         for (const auto& edge : mapEdges) {
