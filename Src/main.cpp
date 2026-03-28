@@ -1,12 +1,11 @@
-
 #include "global.h"
-
 #include <iostream>
-
+#include "Graphics/IslandRender.h"
+#include "Graphics/Background.h"
 int main() {
-    // 1. Cấu hình cửa sổ game
-    const int screenWidth = 1200;
-    const int screenHeight = 850;
+    // 1. Cấu hình cửa sổ game mới (Full HD)
+    const int screenWidth = 1920;
+    const int screenHeight = 1080;
     
     // Khởi tạo cửa sổ
 
@@ -14,7 +13,7 @@ int main() {
     InitWindow(screenWidth, screenHeight, "Tarjan Hai Do Truyen Ky - Team 3");
 
     SetTargetFPS(60);
-
+    LoadGameBackground(); // <--- THÊM DÒNG NÀY
     // 2. Vòng lặp game chính
     while (!WindowShouldClose()) {
         // --- Cập nhật logic (Update) ---
@@ -22,8 +21,8 @@ int main() {
         
         // --- Vẽ đồ họa (Drawing) ---
         BeginDrawing();
-        ClearBackground(GetColor(0x1a1a1aFF)); // Màu nền tối cho chuyên nghiệp
-
+        
+        DrawGameBackground(); // đổi nền
         // Vẽ tiêu đề game
         DrawText("DO HOA TRO CHOI: TARJAN HAI DO", 20, 20, 25, GOLD);
 
@@ -73,6 +72,7 @@ int main() {
     }
 
     // 3. Đóng cửa sổ và giải phóng bộ nhớ
+    UnloadGameBackground();
     CloseWindow();
 
     return 0;
