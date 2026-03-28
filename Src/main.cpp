@@ -3,9 +3,9 @@
 #include "Graphics/IslandRender.h"
 #include "Graphics/Background.h"
 int main() {
-    // 1. Cấu hình cửa sổ game mới (Full HD)
-    const int screenWidth = 1920;
-    const int screenHeight = 1080;
+    // 1. Cấu hình cửa sổ game (Giảm xuống 1600x900)
+    const int screenWidth = 1600; 
+    const int screenHeight = 900;
     
     // Khởi tạo cửa sổ
 
