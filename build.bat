@@ -7,7 +7,7 @@ set "PATH=!COMPILER_PATH!;%PATH%"
 
 echo =========================================
 
-echo    DANGG dep trai dang build game...
+echo    CUONG dep trai dang build game...
 
 echo =========================================
 

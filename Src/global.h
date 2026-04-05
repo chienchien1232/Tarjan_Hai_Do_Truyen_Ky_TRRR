@@ -4,35 +4,36 @@
 #include "raylib.h"
 #include <vector>
 #include <string>
+// CHỈ ĐỂ LẠI 1 BỘ NÀY
+enum GameState { MENU, PLAYING, INSTRUCTIONS };
+inline GameState currentScreen = MENU;
 
-// Cấu trúc dữ liệu cho một hòn đảo
 struct Island {
-    int id;                 // ID của đảo (0, 1, 2...)
-    std::string name;       // Tên đảo
-    Vector2 position;       // Tọa độ x, y để vẽ trên màn hình
-    Color color;            // Màu sắc hiển thị
+    int id;
+    std::string name;
+    Vector2 position;
+    const char* imagePath; 
+};
+const int graph[10][10] = {
+    {0, 1, 1, 1, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+    {1, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+    {0, 1, 0, 0, 0, 0, 0, 0, 1, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}
 };
 
-// Cấu trúc để định nghĩa một đường đi giữa 2 đảo (Cạnh của đồ thị)
-struct Edge {
-    int u, v;               // Nối từ đảo u sang đảo v
-};
-
-// Danh sách 9 hòn đảo cố định cho dự án "Tarjan Hải Đồ"
 const std::vector<Island> mapIslands = {
-    {0, "Phu Quoc", {250, 700}, DARKBROWN},
-    {1, "Con Dao", {550, 750}, DARKBROWN},
-    {2, "Ly Son", {1200, 450}, DARKBROWN},
-    {3, "Cat Ba", {1000, 150}, DARKBROWN},
-    {4, "Co To", {1400, 100}, DARKBROWN},
-    {5, "Nam Du", {400, 800}, DARKBROWN},
-    {6, "Phu Quy", {850, 650}, DARKBROWN},
-    {7, "Cu Lao Cham", {1100, 350}, DARKBROWN},
-    {8, "Hoang Sa", {1450, 400}, DARKBROWN}
-};
-// Danh sách các đường đi mẫu (để nhóm Thuật toán bắt đầu chạy Tarjan)
-const std::vector<Edge> mapEdges = {
-    {0, 5}, {5, 1}, {1, 6}, {6, 8}, {8, 2}, {2, 7}, {7, 3}, {3, 4}
+    {0, "Cu Lao Xanh", {500, 480}, "Src/sources/photo/island10.png"}, 
+    {1, "Cat Ba",      {320, 300}, "Src/sources/photo/island11.png"},
+    {2, "Ly Son",      {720, 320}, "Src/sources/photo/island12.png"},
+    {3, "Hon Nghe",    {500, 720}, "Src/sources/photo/island3.png"},
+    {4, "Co To",       {180, 120}, "Src/sources/photo/island4.png"},
+    {5, "Bach Long Vi",{120, 380}, "Src/sources/photo/island5.png"},
+    {6, "Hoang Sa",    {900, 200}, "Src/sources/photo/island6.png"},
+    {7, "Phu Quoc",    {750, 580}, "Src/sources/photo/island7.png"}, 
+    // ĐÃ CHỈNH: Con Dao dich ra giua hon (x tu 80 tang len 250)
+    {8, "Con Dao",     {550, 80},  "Src/sources/photo/island 8.png"}, 
+    {9, "Nam Du",      {80,  650}, "Src/sources/photo/island9.png"}
 };
 
 #endif
