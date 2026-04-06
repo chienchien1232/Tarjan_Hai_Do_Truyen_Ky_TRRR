@@ -85,22 +85,47 @@ void DrawGameMap() {
     // --- PHẦN BỊ THIẾU CỦA BẠN ĐÃ ĐƯỢC THÊM LẠI Ở ĐÂY ---
     // Bước 2: Vẽ đường nối giữa các đảo
     for (int i = 0; i < 10; i++) {
-        for (int j = i + 1; j < 10; j++) {
-            if (graph[i][j]) DrawLineEx(mapIslands[i].position, mapIslands[j].position, 2.5f, Fade(SKYBLUE, 0.4f));
+    if (!IsIslandVisible(i)) continue;
+
+    for (int j = i + 1; j < 10; j++) {
+        if (!IsIslandVisible(j)) continue;
+
+        if (graph[i][j]) {
+            DrawLineEx(mapIslands[i].position,
+                       mapIslands[j].position,
+                       2.5f,
+                       Fade(SKYBLUE, islandState[i].alpha));
         }
     }
+}
 
     // Bước 3: Vẽ các hòn đảo
     for (int i = 0; i < 10; i++) {
-        Vector2 p = mapIslands[i].position;
-        if (islandTextures[i].id > 0) {
-            DrawTexturePro(islandTextures[i], (Rectangle){0,0,(float)islandTextures[i].width, (float)islandTextures[i].height},
-                           (Rectangle){p.x - 55, p.y - 55, 110, 110}, (Vector2){0,0}, 0, WHITE);
-        } else {
-            DrawCircleV(p, 30, GOLD);
-        }
-        DrawText(mapIslands[i].name.c_str(), p.x - MeasureText(mapIslands[i].name.c_str(), 16)/2, p.y + 60, 16, RAYWHITE);
+    if (!IsIslandVisible(i)) continue; // 🔥 THÊM DÒNG NÀY
+
+    Vector2 p = mapIslands[i].position;
+
+    Color tint = WHITE;
+
+    if (islandState[i].state == HOVERED)
+        tint = YELLOW;
+
+    tint = Fade(tint, islandState[i].alpha);
+
+    if (islandTextures[i].id > 0) {
+        DrawTexturePro(islandTextures[i],
+            (Rectangle){0,0,(float)islandTextures[i].width, (float)islandTextures[i].height},
+            (Rectangle){p.x - 55, p.y - 55, 110, 110},
+            (Vector2){0,0}, 0, tint);
+    } else {
+        DrawCircleV(p, 30, tint);
     }
+
+    DrawText(mapIslands[i].name.c_str(),
+        p.x - MeasureText(mapIslands[i].name.c_str(), 16)/2,
+        p.y + 60, 16,
+        Fade(RAYWHITE, islandState[i].alpha));
+}
     // ----------------------------------------------------
 
     // Bước 4: Vẽ Panel điều khiển (Bên phải)
@@ -125,8 +150,15 @@ void DrawGameMap() {
     if (DrawMenuButton({ panelX, choiY, 240, btnH }, "CHOI")) { /* Logic */ }
     if (DrawMenuButton({ panelX, dfsY, 240, btnH }, "DFS")) { /* Logic */ }
     if (DrawMenuButton({ panelX, bfsY, 240, btnH }, "BFS")) { /* Logic */ }
-    if (DrawMenuButton({ panelX, batDauY, 250, btnH }, "CHON DIEM BAT DAU")) { /* Logic */ }
-    if (DrawMenuButton({ panelX, ketThucY, 250, btnH }, "LOAI BO HON DAO")) { /* Logic */ }
+    if (DrawMenuButton({ panelX, ketThucY, 250, btnH }, "LOAI BO HON DAO")) {
+    // xóa đảo đang hover
+    Vector2 mouse = GetMousePosition();
+    int id = GetIslandAtMouse(mouse);
+
+    if (id != -1) {
+        StartDeleteIsland(id);
+    }
+}
     if (DrawMenuButton({ panelX, resetY, 240, btnH }, "RESET")) { /* Logic */ }
 
     // 2. Vẽ Túi đồ
