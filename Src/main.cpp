@@ -5,7 +5,7 @@ int main() {
     InitWindow(1280, 900, "Tarjan Hai Do Truyen Ky - Team 7");
     SetTargetFPS(60);
 
-    // 2. Load tài nguyên (Hàm này nằm trong Background.h)
+    // 2. Load tài nguyên
     InitGameMap(); 
 
     // 3. Vòng lặp game
@@ -13,21 +13,14 @@ int main() {
         BeginDrawing();
             ClearBackground(BLACK);
 
-            // Điều hướng màn hình
-            if (currentScreen == MENU) {
-                DrawStartMenu();
-            } 
-            else if (currentScreen == PLAYING) {
-                DrawGameMap();
-            } 
-            else if (currentScreen == INSTRUCTIONS) {
-                DrawInstructions();
-            }
+            if (currentScreen == MENU) DrawStartMenu();
+            else if (currentScreen == PLAYING) DrawGameMap();
+            else if (currentScreen == INSTRUCTIONS) DrawInstructions();
 
         EndDrawing();
     }
 
-    // 4. Giải phóng và đóng
+    // 4. Đóng và dọn dẹp
     CloseGameMap(); 
     CloseWindow();
 
