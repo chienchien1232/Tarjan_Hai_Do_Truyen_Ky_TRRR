@@ -1,5 +1,5 @@
 #include "Graphics/Background.h"
-
+#include "IslandController.h"
 int main() {
     // 1. Khởi tạo cửa sổ
     InitWindow(1280, 900, "Tarjan Hai Do Truyen Ky - Team 7");
