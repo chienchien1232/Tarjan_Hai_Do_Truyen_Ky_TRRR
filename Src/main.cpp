@@ -10,17 +10,35 @@ int main() {
 
     // 3. Vòng lặp game
     while (!WindowShouldClose()) {
+        UpdateGameAudio();
+
         BeginDrawing();
             ClearBackground(BLACK);
 
-            if (currentScreen == MENU) DrawStartMenu();
-            else if (currentScreen == PLAYING) DrawGameMap();
-            else if (currentScreen == INSTRUCTIONS) DrawInstructions();
+            // Điều hướng màn hình
+            if (currentScreen == MENU) {
+                DrawStartMenu();
+            } 
+            else if (currentScreen == CHOOSE_ALGORITHM) {
+                DrawChooseAlgorithmScreen();
+            }
+            else if (currentScreen == CHOOSE_ISLAND) {
+                DrawChooseIslandScreen();
+            }
+            else if (currentScreen == PLAYING) {
+                DrawGameplayScreen();
+            }
+            else if (currentScreen == RESULT) {
+                DrawResultScreen();
+            }
+            else if (currentScreen == INSTRUCTIONS) {
+                DrawInstructions();
+            }
 
         EndDrawing();
     }
 
-    // 4. Đóng và dọn dẹp
+    // 4. Giải phóng và đóng
     CloseGameMap(); 
     CloseWindow();
 
