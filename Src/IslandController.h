@@ -2,6 +2,9 @@
 #define ISLAND_CONTROLLER_H
 #include "raylib.h"
 #include "global.h"
+
+
+
 // Trạng thái đảo
 enum IslandState {
     NORMAL,
@@ -82,6 +85,19 @@ inline void UpdateIslands() {
 // ===== Check active =====
 inline bool IsIslandVisible(int i) {
     return islandState[i].state != DELETED;
+}
+
+// ===== HÀM VẼ THUYỀN (THAY THẾ HÌNH TRÒN) =====
+inline void DrawMovingShip(Vector2 currentPos) {
+   
+
+    // Vẽ thuyền thay thế:
+    float scale = 0.3f; // Bạn có thể điều chỉnh độ to nhỏ của thuyền ở đây
+    Rectangle source = { 0, 0, (float)shipTexture.width, (float)shipTexture.height };
+    Rectangle dest = { currentPos.x, currentPos.y, shipTexture.width * scale, shipTexture.height * scale };
+    Vector2 origin = { (shipTexture.width * scale) / 2, (shipTexture.height * scale) / 2 };
+
+    DrawTexturePro(shipTexture, source, dest, origin, 0.0f, WHITE);
 }
 
 #endif

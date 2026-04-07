@@ -2,12 +2,13 @@
 #include "IslandController.h"
 int main() {
     // 1. Khởi tạo cửa sổ
-    InitWindow(1280, 900, "Tarjan Hai Do Truyen Ky - Team 7");
+    InitWindow(1280, 900, "Tarjan Hai Do Truyen Ky - Team 3");
     SetTargetFPS(60);
 
     // 2. Load tài nguyên
     InitGameMap(); 
-
+    //  Load tài nguyên trong main.cpp
+    shipTexture = LoadTexture("Src/sources/photo/thuyen1.png");
     // 3. Vòng lặp game
     while (!WindowShouldClose()) {
         UpdateGameAudio();
@@ -39,6 +40,7 @@ int main() {
     }
 
     // 4. Giải phóng và đóng
+    UnloadTexture(shipTexture);
     CloseGameMap(); 
     CloseWindow();
 

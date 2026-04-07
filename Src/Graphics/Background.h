@@ -1193,8 +1193,20 @@ void DrawGameplayScreen() {
     }
 
     // Vẽ nhân vật di chuyển
+    
     if (isTraveling || !traversalPath.empty()) {
-        DrawCircleV(travelerPosition, 12, GOLD);
+        /* DrawCircleV(travelerPosition, 12, GOLD); */ // Vòng tròn cũ - Đã đóng ghi chú
+        
+        // --- PHẦN THÊM MỚI: VẼ THUYỀN ---
+        float scale = 0.35f; // Bạn có thể điều chỉnh 0.3f -> 0.5f tùy kích thước ảnh thuyen1.png
+        Rectangle source = { 0, 0, (float)shipTexture.width, (float)shipTexture.height };
+        Rectangle dest = { travelerPosition.x, travelerPosition.y, shipTexture.width * scale, shipTexture.height * scale };
+        Vector2 origin = { (shipTexture.width * scale) / 2, (shipTexture.height * scale) / 2 };
+        
+        DrawTexturePro(shipTexture, source, dest, origin, 0.0f, WHITE);
+        // --------------------------------
+
+        // Giữ nguyên các hiệu ứng vòng sáng và ký hiệu liên quan bên dưới
         DrawCircleLines((int)travelerPosition.x, (int)travelerPosition.y, 16, ORANGE);
         DrawText("*", (int)travelerPosition.x - 5, (int)travelerPosition.y - 8, 20, MAROON);
     }

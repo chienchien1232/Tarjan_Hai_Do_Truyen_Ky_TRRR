@@ -6,6 +6,7 @@
 #include <string>
 #include <set>
 
+inline Texture2D shipTexture;
 // Các trạng thái màn hình chính
 enum GameState { MENU, CHOOSE_ALGORITHM, CHOOSE_ISLAND, PLAYING, RESULT, INSTRUCTIONS };
 inline GameState currentScreen = MENU;
