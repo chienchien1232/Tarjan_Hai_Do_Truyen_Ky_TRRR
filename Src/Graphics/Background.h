@@ -1305,15 +1305,6 @@ void DrawResultScreen() {
         DrawRectangle(GetScreenWidth()/2 - 200, 250, 400, 300, ColorAlpha(MAROON, 0.7f));
     }
 
-    if (chestTexture.id > 0) {
-        DrawTexturePro(chestTexture,
-            (Rectangle){ 0, 0, (float)chestTexture.width, (float)chestTexture.height },
-            (Rectangle){ (float)GetScreenWidth()/2 - 90, 255, 180, 120 },
-            (Vector2){ 0, 0 },
-            0.0f,
-            isWin ? WHITE : ColorAlpha(GRAY, 0.75f));
-    }
-
     int y = 290;
     DrawText(TextFormat("Dac san: %d/%d", playerRewards.articulation_points, rewardTargets.articulation_points), GetScreenWidth()/2 - 150, y, 20, SKYBLUE);
     DrawText(TextFormat("Chia khoa: %d/%d", playerRewards.bridges, rewardTargets.bridges), GetScreenWidth()/2 - 150, y + 40, 20, SKYBLUE);
@@ -1321,6 +1312,39 @@ void DrawResultScreen() {
     const char* algoName = "DFS";
     DrawText(TextFormat("Thuat toan: %s", algoName), GetScreenWidth()/2 - 150, y + 120, 20, RAYWHITE);
 
+    // Hiển thị các đỉnh cắt (articulation points)
+    std::string articulationStr = "Dinh cat: ";
+    for (int node : articulationPointsList) {
+        if (collectedSpecialties[node]) {
+            articulationStr += mapIslands[node].name + ", ";
+        }
+    }
+    if (articulationStr.length() > 11) {
+        articulationStr = articulationStr.substr(0, articulationStr.length() - 2); // Xoá dấu phẩy cuối
+    }
+    DrawText(articulationStr.c_str(), GetScreenWidth()/2 - 150, y + 160, 18, SKYBLUE);
+
+    // Hiển thị các cạnh cầu (bridges)
+        int bridgeLineY = y + 185;
+    int bridgeIndex = 0;
+
+    for (const auto& edge : bridgesList) {
+        if (rewardedBridges.count(edge) > 0) {
+            std::string edgeName = "Canh cau " + std::to_string(bridgeIndex + 1) + ": " + 
+                                mapIslands[edge.first].name + " - " + mapIslands[edge.second].name;
+            DrawText(edgeName.c_str(), GetScreenWidth()/2 - 150, bridgeLineY, 18, SKYBLUE);
+            bridgeLineY += 25; // Dịch xuống 25px cho dòng tiếp theo
+            bridgeIndex++;
+        }
+    }
+            // Nút "CHƠI LẠI" - phía trên
+        if (DrawMenuButton({ (float)GetScreenWidth()/2 - 100, 580, 200, 50 }, "CHOI LAI", GREEN, DARKGREEN)) {
+            if (selectedStartIsland >= 0 && vertexActive[selectedStartIsland]) {
+                StartSelectedRun(stepByStepMode);
+            }
+        }
+
+    // Nút "MENU CHÍNH" - phía dưới
     if (DrawMenuButton({ (float)GetScreenWidth()/2 - 100, 650, 200, 50 }, "MENU CHINH", BLUE, DARKBLUE)) {
         selectedAlgorithm = NONE;
         ResetRunState();
